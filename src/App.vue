@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import { StringDecoder } from 'string_decoder';
 import { ref } from 'vue';
-import Test from './components/Test.vue'
+import DeleteBtn from './components/deleteBtn.vue';
 
-const todos: string[] = []
-let todo = ref<string>('')
+const todos = ref<string[]>([])
+let todoItem = ref<string>('')
 
 
-const callTodo = () => {
-  if (todo.value === '') return
-  console.log(todo.value)
-  todo.value = ''
+const addTodo = () => {
+  if (todoItem.value === '') return
+
+  todos.value.push(todoItem.value)
+  todoItem.value = ''
 }
 
-let str = ref<String>('hello')
-
-const foo = (mes: String) => {
-  str.value = mes
+const deleteItem = (index: number) => {
+  console.log(index)
+  todos.value.splice(index, 1)
 }
 
 
@@ -25,14 +24,22 @@ const foo = (mes: String) => {
 
 <template>
   <div>
-    <h1 class="w-300px bg-red-300 mx-auto mt-4 text-center text-2xl">your todo list</h1>
+    <h1 class="w-300px mx-auto mt-4 text-left text-3xl">your todo list</h1>
     <div class="flex justify-center mt-5">
-      <input class="input input-primary w-300px" type="text" v-model="todo" />
-      <button class="btn btn-primary ml-5" @click="callTodo">Button</button>
+      <input class="input input-primary w-300px" type="text" v-model="todoItem" />
+      <button class="btn btn-primary ml-5" @click="addTodo">Add</button>
     </div>
-
-    <Test @changeMes="foo" />
-    <p class="w-200px mx-auto">{{str}}</p>
+    <ul class="w-400px mx-auto mt-5">
+      <li
+        v-for="(todo, index) in todos"
+        :key="index"
+        class="text-2xl mb-5 border-solid border-gray-500 border rounded-2xl p-5px flex items-center"
+      >
+        <span>・</span>
+        {{ todo }}
+        <DeleteBtn class="ml-auto" :index='index' @delete-item="deleteItem"/>
+      </li>
+    </ul>
   </div>
 </template>
 

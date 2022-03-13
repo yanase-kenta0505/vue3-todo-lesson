@@ -1,6 +1,4 @@
 <script setup lang="ts">
-
-
 const props = defineProps<{
   index: number
 }>()
@@ -8,9 +6,6 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'deleteItem', index: number):void
 }>()
-
-
-
 </script>
 
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import DeleteBtn from './components/deleteBtn.vue';
+import AddTodoBtn from './components/addTodoBtn.vue';
 
 const todos = ref<string[]>([])
 let todoItem = ref<string>('')
@@ -20,6 +21,8 @@ const deleteItem = (index: number) => {
 
 
 
+
+
 </script>
 
 <template>
@@ -27,7 +30,7 @@ const deleteItem = (index: number) => {
     <h1 class="w-300px mx-auto mt-4 text-left text-3xl">your todo list</h1>
     <div class="flex justify-center mt-5">
       <input class="input input-primary w-300px" type="text" v-model="todoItem" />
-      <button class="btn btn-primary ml-5" @click="addTodo">Add</button>
+      <AddTodoBtn :todo-item="todoItem" @add-todo-item="addTodo" />
     </div>
     <ul class="w-400px mx-auto mt-5">
       <li
@@ -37,7 +40,7 @@ const deleteItem = (index: number) => {
       >
         <span>・</span>
         {{ todo }}
-        <DeleteBtn class="ml-auto" :index='index' @delete-item="deleteItem"/>
+        <DeleteBtn class="ml-auto" :index="index" @delete-item="deleteItem" />
       </li>
     </ul>
   </div>
